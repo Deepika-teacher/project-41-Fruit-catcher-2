@@ -45,10 +45,8 @@ class Form{
         });
 
         this.reset.mousePressed(() => {
-            playerCount=0;
             player.updateCount(0);
             game.update(0);
-           
         });
 
     }

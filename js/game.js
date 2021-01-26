@@ -26,59 +26,60 @@ class Game{
                 form = new Form()
                 form.display();
             }
+
+            
             player1 = createSprite(200,500);
             player1.addImage("player1",player_img);
             
             player2 = createSprite(800,500);
-            player2.addImage("player2",player_img);
-   
+            player2.addImage("player2", player_img);
+            players=[player1,player2];    
+
         }
     
     play(){
         
-       // var players=[player1,player2];
-    
                 form.hide();
 
                 Player.getPlayerInfo();
+
                  image(back_img, 0, 0, 1000, 800);
                  var x =100;
                  var y=200;
                  var index =0;
                  drawSprites();
-                 if(allPlayers!==undefined){
                  for(var plr in allPlayers){
+
+                    index = index+1;
+
+                    if(index<3){
                     
-                    
-                     index = index+1;
+                     console.log("index is"+index);
                      x = 500-allPlayers[plr].distance;
                      y=500;
-                     console.log(allPlayers);
-                     if(index===1)
-                        player1.x = x;
-                        player1.y = y;
-                    if(index===2)
-                        player1.x = x;
-                        player1.y = y;
+                     
+                     players[index -1].x = x;
+                     players[index - 1].y = y;
                        
                      if(index === player.index){
-                         
-                         fill("black");
-                         textSize(25);
-                         text(allPlayers[plr].name ,x-25,y+25);
+                        
+                        textSize(25);
+                        fill(0);
+                        text(player.name,x,y+20);
 
                          
                      }
+                    
                      textSize(25);
                      fill("white");
                      text("Player 1 :" +allPlayers.player1.score,50,50);
                     text("Player 2 :" + allPlayers.player2.score, 50, 100);
-                     
+                    }
                  
                  }
                 
                 
-                }
+                 
 
                 if (keyIsDown(RIGHT_ARROW) && player.index !== null) {
                     player.distance -= 10
@@ -110,19 +111,11 @@ class Game{
                  }
                  
                   if (player.index !== null) {
-                     //fill code here, to destroy the objects.
-                     for (var i = 0; i < fruitGroup.length; i++) {
-                        if (fruitGroup.get(i).isTouching(player1)) {
+                    for (var i = 0; i < fruitGroup.length; i++) {
+                        if (fruitGroup.get(i).isTouching(players)) {
                             fruitGroup.get(i).destroy();
-                            player1.score =player1.score+1;
-                            player1.update();
-                            
-                        }
-
-                        if (fruitGroup.get(i).isTouching(player2)) {
-                            fruitGroup.get(i).destroy();
-                            player2.score =player2.score+1;
-                            player2.update();
+                            player.score =player.score+1;
+                            player.update();
                             
                         }
                     }
